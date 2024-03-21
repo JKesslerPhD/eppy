@@ -569,6 +569,9 @@ class IDF(object):
 
         """
         # import pdb; pdb.set_trace()
+        # Initializing these objects and setting them as None.
+        self.idfobjects = None 
+        self.model = None
         if idfname != None:
             self.idfname = idfname
             try:
@@ -585,7 +588,7 @@ class IDF(object):
     """ Methods to set up the IDD."""
 
     @classmethod
-    def setiddname(cls, iddname, testing=False):
+    def setiddname(cls, iddname, testing=False, overwrite=False):
         """
         Set the path to the EnergyPlus IDD for the version of EnergyPlus which
         is to be used by eppy.
@@ -603,7 +606,7 @@ class IDF(object):
         IDDAlreadySetError
 
         """
-        if cls.iddname == None:
+        if cls.iddname == None or overwrite:
             cls.iddname = iddname
             cls.idd_info = None
             cls.block = None
